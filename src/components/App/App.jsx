@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
 import { Searchbar } from '../Searchbar/Searchbar';
-import { searchImages } from 'Api/Api';
+import { searchImages } from '../../Api/Api';
 import { ImageGallery } from '../ImageGallery/ImageGallery';
 import { Button } from '../Button/Button';
 import { Message } from '../Message/Message';

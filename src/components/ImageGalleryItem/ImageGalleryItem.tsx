@@ -1,9 +1,23 @@
 import { Component } from 'react';
 import { Image } from './ImageGalleryItem.styled';
-import { Modal } from 'components/Modal/Modal';
+import { Modal } from '../Modal/Modal';
 
-export class ImageGalleryItem extends Component {
-  state = { openModal: false };
+interface IState {
+  openModal: boolean,
+}
+
+interface IProps {
+  imageData: {webformatURL: string, tags: string, largeImageURL:string}
+}
+
+export class ImageGalleryItem extends Component<IProps, IState> {
+ constructor(props: IProps) {
+    super(props);
+
+    this.state = {
+  openModal: false,
+    };
+  }
 
   toggleModal = () => {
     this.setState(({ openModal }) => ({ openModal: !openModal }));

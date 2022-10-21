@@ -1,7 +1,8 @@
+import React from "react"
 import { Gallery, GalleryItem } from './ImageGallery.styled';
-import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
+import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 
-export const ImageGallery = ({ imagesData }) => {
+export const ImageGallery: React.FC = ({ imagesData }) => {
   return (
     <Gallery>
       {imagesData.map(imageData => (
