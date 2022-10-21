@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { IDataImages } from "../types/types";
 
 axios.defaults.baseURL = 'https://pixabay.com';
 
-export const searchImages = async (searchQuery, page) => {
+export const searchImages = async (searchQuery: string, page: number) => {
   const params = {
     params: {
       key: '28341788-9e42159be3be8e53d709707ca',
@@ -16,5 +17,5 @@ export const searchImages = async (searchQuery, page) => {
 
   const response = await axios.get('/api/', params);
 
-  return response.data;
+  return response.data as IDataImages;
 };
