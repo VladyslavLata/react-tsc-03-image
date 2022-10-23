@@ -19,17 +19,9 @@ const Button_1 = require("../Button/Button");
 const Message_1 = require("../Message/Message");
 const App_styled_1 = require("./App.styled");
 class App extends react_1.Component {
-    constructor() {
-        super(...arguments);
-        this.state = {
-            totalImages: 0,
-            images: [],
-            searchQuery: '',
-            page: 1,
-            status: 'idle',
-            error: '',
-        };
-        this.getSearchQuery = searchQuery => {
+    constructor(props) {
+        super(props);
+        this.getSearchQuery = (searchQuery) => {
             if (searchQuery === this.state.searchQuery) {
                 return;
             }
@@ -38,8 +30,16 @@ class App extends react_1.Component {
         this.loadMoreImages = () => {
             this.setState(({ page }) => ({ page: page + 1 }));
         };
+        this.state = {
+            totalImages: 0,
+            images: [],
+            searchQuery: '',
+            page: 1,
+            status: 'idle',
+            error: '',
+        };
     }
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(_, prevState) {
         return __awaiter(this, void 0, void 0, function* () {
             const { searchQuery, page } = this.state;
             if (searchQuery !== prevState.searchQuery || page !== prevState.page) {
@@ -53,8 +53,10 @@ class App extends react_1.Component {
                     }));
                 }
                 catch (error) {
-                    this.setState({ status: 'rejected', error: error });
-                    console.error(error.message);
+                    if (error instanceof Error) {
+                        this.setState({ status: 'rejected', error: error.message });
+                        console.error(error.message);
+                    }
                 }
             }
         });
@@ -65,7 +67,7 @@ class App extends react_1.Component {
         return (<App_styled_1.ApplicationBox>
         <Searchbar_1.Searchbar onSubmit={this.getSearchQuery}/>
         {status !== 'idle' && totalImages > 0 && (<ImageGallery_1.ImageGallery imagesData={images}/>)}
-        {status === 'rejected' && <Message_1.Message>{error.message}</Message_1.Message>}
+        {status === 'rejected' && <Message_1.Message>{error}</Message_1.Message>}
         {status === 'resolved' && totalImages === 0 && (<Message_1.Message>
             Your search "{searchQuery}" did not match any listings. Change the
             request field and try again.

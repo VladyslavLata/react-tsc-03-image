@@ -1,3 +1,4 @@
+import React from "react";
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import {
@@ -17,12 +18,16 @@ const searchValidationSchema = yup.object().shape({
     .required('Enter search parameters'),
 });
 
-export const Searchbar = ({ onSubmit }) => {
+interface IProps {
+  onSubmit: (searchQuery:string)=>void,
+}
+
+export const Searchbar: React.FC<IProps> = ({ onSubmit }) => {
   return (
     <SearcPanel>
       <Formik
         initialValues={{ search: '' }}
-        onSubmit={(values, actions) => {
+        onSubmit={(values) => {
           onSubmit(values.search.trim());
         }}
         validationSchema={searchValidationSchema}

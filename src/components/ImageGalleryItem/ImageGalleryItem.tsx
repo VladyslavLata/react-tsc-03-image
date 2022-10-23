@@ -1,13 +1,16 @@
 import { Component } from 'react';
 import { Image } from './ImageGalleryItem.styled';
 import { Modal } from '../Modal/Modal';
-
+import { IDataImage } from "../../types/types";
+ 
 interface IState {
   openModal: boolean,
 }
 
 interface IProps {
-  imageData: {webformatURL: string, tags: string, largeImageURL:string}
+  imageData: IDataImage,
+  // Pick<IDataImages, "webformatURL" | "tags" | "largeImageURL">,
+  // { webformatURL: string, tags: string, largeImageURL: string }
 }
 
 export class ImageGalleryItem extends Component<IProps, IState> {

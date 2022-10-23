@@ -6,9 +6,7 @@ import { ImageGallery } from '../ImageGallery/ImageGallery';
 import { Button } from '../Button/Button';
 import { Message } from '../Message/Message';
 import { ApplicationBox } from './App.styled';
-import { IDataImages, IDataImage } from "../../types/types";
-import { strict } from 'assert';
-import { string } from 'yup';
+import {  IDataImage } from "../../types/types";
 
 interface IState {
     totalImages: number,
@@ -68,7 +66,7 @@ export class App extends Component<{}, IState> {
   //   error: '',
   // };
 
-  async componentDidUpdate(_, prevState:IState) {
+  async componentDidUpdate(_:{}, prevState:IState) {
     const { searchQuery, page } = this.state;
     if (searchQuery !== prevState.searchQuery || page !== prevState.page) {
       try {
@@ -80,13 +78,14 @@ export class App extends Component<{}, IState> {
           status: 'resolved',
         }));
       } catch (error) {
+        if (error instanceof Error) {
         this.setState({ status: 'rejected', error: error.message });
-        console.error(error.message);
+        console.error(error.message);} 
       }
     }
   }
 
-  getSearchQuery = searchQuery => {
+  getSearchQuery = (searchQuery: string) => {
     if (searchQuery === this.state.searchQuery) {
       return;
     }
@@ -107,7 +106,7 @@ export class App extends Component<{}, IState> {
         {status !== 'idle' && totalImages > 0 && (
           <ImageGallery imagesData={images} />
         )}
-        {status === 'rejected' && <Message>{error.message}</Message>}
+        {status === 'rejected' && <Message>{error}</Message>}
         {status === 'resolved' && totalImages === 0 && (
           <Message>
             Your search "{searchQuery}" did not match any listings. Change the

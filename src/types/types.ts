@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface IDataImage {
   id: number;
   pageURL: string;
@@ -28,4 +30,8 @@ export interface IDataImages {
   total: number;
   totalHits: number;
   hits: IDataImage[];
+}
+
+export interface IChildren {
+  children: React.ReactNode
 }
